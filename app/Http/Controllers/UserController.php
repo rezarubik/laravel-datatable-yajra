@@ -15,13 +15,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // $data = User::with(['user_phone'])->select('id', 'name', 'email')->get();
-        // return $data;
         if ($request->ajax()) {
-            // $data = User::select('*');
             $data = User::with(['user_phone'])->select('id', 'name', 'email');
             return Datatables::of($data)
-                // ->addIndexColumn()
                 ->addColumn('user_phone', function (User $user) {
                     return $user->user_phone->map(function ($user_phone) {
                         return $user_phone->phone;
